@@ -1,5 +1,11 @@
 #!/bin/bash
 
+## The following is sufficient for an exposure finding
+##  - EC2.19
+##  - Unpatched AMI
+##
+## Note having a public IP address is not necessary
+
 # --- Configuration ---
 . ./exposure-finding-config.sh
 
@@ -61,7 +67,6 @@ INSTANCE_ID=$(aws ec2 run-instances \
     --key-name "$KEY_NAME" \
     --security-group-ids "$SG_ID" \
     --iam-instance-profile Name="$INSTANCE_PROFILE_NAME" \
-    --associate-public-ip-address \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Demo-Vulnerable-Instance}]' \
     --query 'Instances[0].InstanceId' --output text)
     

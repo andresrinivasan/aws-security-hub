@@ -7,7 +7,7 @@
 echo "--- Starting Cleanup ---"
 
 echo "Finding instance ID..."
-INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:${INSTANCE_TAG_KEY},Values=${INSTANCE_TAG_VALUE}" "Name=instance-state-name,Values=running,pending" --query 'Reservations[*].Instances[*].InstanceId' --output text --region "$REGION")
+INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=Demo-Vulnerable-Instance" "Name=instance-state-name,Values=running,pending" --query 'Reservations[*].Instances[*].InstanceId' --output text --region "$REGION")
 
 if [ -z "$INSTANCE_ID" ]; then
     echo "No running instance found with tag ${INSTANCE_TAG_KEY}=${INSTANCE_TAG_VALUE}. Exiting."
